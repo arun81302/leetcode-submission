@@ -1,27 +1,37 @@
 class Solution(object):
     def threeSum(self, arr):
+
         arr.sort()
-        ans=[]
         res=[]
         for i in range(len(arr)):
-            j=i+1
-            k=len(arr)-1
-            while j<k:
-                value=arr[i]+arr[j]+arr[k]
-                if value==0:
-                    res.append([arr[i],arr[j],arr[k]])
-                if value<0:
-                    j+=1
+
+            if i>0 and arr[i]==arr[i-1]:
+                continue
+            target=-1*arr[i]
+            a=i+1
+            b=len(arr)-1
+            while a<b:
+                value=arr[a]+arr[b]
+                if value==target:
+
+                    res.append([arr[i],arr[a],arr[b]])
+                    
+                    a+=1
+                    b-=1
+                    one=arr[a]
+                    two=arr[b]
+                    while a<b and arr[a]==arr[a-1]:
+                        
+                        a+=1
+                    while a<b and arr[b]==arr[b+1]:
+                        
+                        b-=1
+                    
+                elif value<target:
+                    a+=1
                 else:
-                    k-=1
-        res.sort()
-        if len(res)==0:
-            return res
-        ans=[res[0]]
-        for i in range(1,len(res)):
-            if res[i]!=ans[-1]:
-                ans.append(res[i])
-        return ans
+                    b-=1
+        return res
         """
         :type nums: List[int]
         :rtype: List[List[int]]
